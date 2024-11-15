@@ -20,7 +20,7 @@ export class EmailService {
 
   async sendPriceAlert(to: string, subject: string, text: string) {
     await this.transporter.sendMail({
-      from: '"Blockchain Tracker" <mikegcp6@gmail.com>', // sender address
+      from: `"Blockchain Tracker" ${this.configService.get('EMAIL_USER')}`, // sender address
       to,
       subject,
       text,
