@@ -7,7 +7,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Price Tracker')
     .setDescription('API for tracking blockchain prices and alerts')
-    .setVersion('1.0')
+    .setVersion('2.0')
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

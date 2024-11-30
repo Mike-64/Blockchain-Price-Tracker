@@ -11,10 +11,10 @@ export class Alert {
   id: number;
 
   @Column()
-  chain: string;
+  token: string;
 
   @Column('decimal')
-  dollar: number;
+  targetPrice: number;
 
   @Column()
   email: string;
@@ -24,4 +24,8 @@ export class Alert {
 
   @Column({ default: 'Active' })
   status: string;
+
+  toString() {
+    return this.token + '|' + this.targetPrice + '|' + this.email;
+  }
 }

@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TrackerModule } from './tracker/tracker.module';
-import { EmailModule } from './email/email.module';
-import { Token } from './tracker/entities/token.entity';
+import { Price } from './tracker/entities/price.entity';
 import { ScheduleModule } from '@nestjs/schedule';
 import { Alert } from './tracker/entities/alert.entity';
 
@@ -24,14 +22,13 @@ import { Alert } from './tracker/entities/alert.entity';
         username: configService.get<string>('DATABASE_USER'),
         password: configService.get<string>('DATABASE_PASS'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Token, Alert],
+        entities: [Price, Alert],
         synchronize: Boolean(configService.get<string>('DATABASE_SYN')),
       }),
     }),
     TrackerModule,
-    EmailModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
