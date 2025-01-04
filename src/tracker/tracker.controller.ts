@@ -13,12 +13,12 @@ export class TrackerController {
   constructor(private readonly trackerService: TrackerService) {}
 
   @Get('hourly-prices')
-  @ApiOkResponse({ description: 'data as {chain, hourly prices[]}' })
+  @ApiOkResponse({ description: 'data as {hourly prices[]}' })
   @ApiOperation({
     description: 'Gets the price data for last 24 hrs',
   })
-  async getHourlyPrices(@Query('chain') chain: string) {
-    return await this.trackerService.getHourlyPrices(chain);
+  async getHourlyPrices() {
+    return await this.trackerService.getHourlyPrices();
   }
 
   @Post('set-alert')
@@ -33,5 +33,16 @@ export class TrackerController {
       alert.email,
     );
     return { message: 'Alert set successfully.' };
+  }
+  @Get('swap-rate')
+  @ApiOperation({
+    description: 'Create Alerts for notify when specific price reaches',
+  })
+  @ApiOkResponse({ description: 'data as {message, AlertData}' })
+  async getSwapRate(@Query('ethAmount') ethAmount: number) {
+    if (!ethAmount || ethAmount <= 0) {
+      return { error: 'Invalid ETH amount. Please provide a positive number.' };
+    }
+    return await this.trackerService.getSwapRate(ethAmount);
   }
 }
